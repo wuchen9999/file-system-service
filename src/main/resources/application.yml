@@ -1,0 +1,63 @@
+#端口以及服务名称等配置
+server: 
+ port: 8090
+spring: 
+ application: 
+  name: file-system-service
+  
+  #数据源配置
+  #oracle database settings
+ datasource:
+    #platform: oracle
+    #url: jdbc:oracle:thin:@10.1.5.30:1521:orclpdb
+    #username: jeesite
+    #password: jeesite
+    #driverClassName: oracle.jdbc.OracleDriver 
+    #mysql database setting
+#    platform: mysql
+  url: jdbc:mysql://localhost:3306/filesys?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+  username: root
+  password: root
+#    driverClassName: com.mysql.cj.jdbc.Driver
+  driverClassName: com.mysql.cj.jdbc.Driver
+    # 阿里巴巴Druid数据库连接池 监控访问地址：http://ip:port/druid/login.html
+  type: com.alibaba.druid.pool.DruidDataSource
+  druid:
+   initial-size: 5 #初始化时建立物理连接的个数
+   min-idle: 5 #最小连接池数量
+   max-active: 20 #最大连接池数量 maxIdle已经不再使用
+   max-wait: 60000 #获取连接时最大等待时间，单位毫秒
+   test-while-idle: true #申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+   time-between-eviction-runs-millis: 60000 #既作为检测的间隔时间又作为testWhileIdel执行的依据
+   min-evictable-idle-time-millis: 30000 #销毁线程时检测当前连接的最后活动时间和当前时间差大于该值时，关闭当前连接
+   validation-query: select 'x' #用来检测连接是否有效的sql 必须是一个查询语句  #mysql中为 select 'x' #oracle中为 select 1 from dual
+   test-on-borrow: false  #申请连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true      
+   test-on-return: false #归还连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true     
+#   exception-sorte: true #当数据库抛出不可恢复的异常时,抛弃该连接 
+   #pool-prepared-statements: true  #是否缓存preparedStatement,mysql5.5+建议开启  
+   max-pool-prepared-statement-per-connection-size: 20  #当值大于0时poolPreparedStatements会自动修改为true    
+   filters: stat,wall  #配置扩展插件 
+   connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500 #通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      #use-global-data-source-stat: true  #合并多个DruidDataSource的监控数据
+      # 配置DruidStatFilter
+   web-stat-filter:
+    enabled: true
+    url-pattern: "/*"
+    exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+      # 配置DruidStatViewServlet
+   stat-view-servlet:
+    url-pattern: "/druid/*"       
+        #allow: 127.0.0.1,192.168.163.1 # IP白名单(没有配置或者为空，则允许所有访问)  
+        #deny: 192.168.1.73 # IP黑名单 (存在共同时，deny优先于allow)
+    reset-enable: false  #  禁用HTML页面上的"Reset All"功能       
+    login-username: druidAdmin  # 登录名   
+    login-password: 123456  # 登录密码
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.qy.model
+#配置eureka注册中心
+eureka: 
+ client: 
+  serviceUrl:
+   defaultZone: http://localhost:8761/eureka/  #注册中心地址
+
