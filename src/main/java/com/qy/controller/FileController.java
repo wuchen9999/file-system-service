@@ -1,5 +1,7 @@
 package com.qy.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,14 @@ public class FileController {
 		fileService.uploadFile(SYSTEM_NAME,newFileName+suffix,file,fd);
 		
 		return "successful";
+	} 
+	
+	
+	@RequestMapping(value = "/getFilesInfo", method = RequestMethod.POST)
+	@ResponseBody
+	public List<FileDetail> getFilesInfo() {
+		
+		return fileService.getFilesInfo();
 	} 
 }
 
