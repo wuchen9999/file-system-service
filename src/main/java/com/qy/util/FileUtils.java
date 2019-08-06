@@ -1,9 +1,11 @@
 package com.qy.util;
-import java.io.File; 
-import java.io.FileInputStream; 
-import java.io.IOException; 
-import java.io.InputStream; 
-import org.apache.commons.net.ftp.FTPClient; 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply; 
    
 public class FileUtils { 
@@ -40,11 +42,19 @@ public class FileUtils {
                 ftp.disconnect(); 
                 return success; 
             } 
+            ftp.setBufferSize(1024*1024);
             ftp.enterLocalPassiveMode();
             ftp.setFileType(FTPClient.BINARY_FILE_TYPE); 
             ftp.makeDirectory(path); 
             ftp.changeWorkingDirectory(path); 
-            ftp.storeFile(filename, input); 
+//            ftp.storeFile(filename, input); 
+            OutputStream out = ftp.storeFileStream(filename);
+            byte[] byteArray = new byte[12040];
+            int read = 0;
+            while ((read = input.read(byteArray)) != -1) {
+            	out.write(byteArray, 0, read);
+            }
+            out.close();
             input.close(); 
             ftp.logout(); 
             success = true; 

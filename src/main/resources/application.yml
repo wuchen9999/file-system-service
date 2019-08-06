@@ -4,17 +4,14 @@ server:
 spring: 
  application: 
   name: file-system-service
-  
+#  配置上传文件大小的限制
+ servlet: 
+  multipart: 
+   maxFileSize: 3000MB
+   maxRequestSize: 3000MB
   #数据源配置
   #oracle database settings
  datasource:
-    #platform: oracle
-    #url: jdbc:oracle:thin:@10.1.5.30:1521:orclpdb
-    #username: jeesite
-    #password: jeesite
-    #driverClassName: oracle.jdbc.OracleDriver 
-    #mysql database setting
-#    platform: mysql
   url: jdbc:mysql://localhost:3306/filesys?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
   username: root
   password: root
