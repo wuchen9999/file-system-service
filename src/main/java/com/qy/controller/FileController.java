@@ -42,6 +42,7 @@ public class FileController {
 	@ResponseBody
 	public String uploadFile(@RequestParam("file") MultipartFile file) {
 		log.info("startTime:"+new SimpleDateFormat("YYYY-MM-DD hh-mm-ss").format(new Date()));
+		System.out.println(System.currentTimeMillis());
 		if(!file.isEmpty()) {
 			BigDecimal fileSize =  new BigDecimal(file.getSize());
 			String newFileName =  CommUtils.getUUID();
@@ -58,7 +59,8 @@ public class FileController {
 		}else {
 			return "file cannot be empty !!";
 		}
-		
+		System.out.println(System.currentTimeMillis());
+
 		return "successful";
 	} 
 	
