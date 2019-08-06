@@ -41,8 +41,8 @@ public class FileController {
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
 	@ResponseBody
 	public String uploadFile(@RequestParam("file") MultipartFile file) {
-		log.info("startTime:"+new SimpleDateFormat("YYYY-MM-DD hh-mm-ss").format(new Date()));
 		System.out.println(System.currentTimeMillis());
+		log.info("startTime:"+new SimpleDateFormat("YYYY-MM-DD hh-mm-ss").format(new Date()));
 		if(!file.isEmpty()) {
 			BigDecimal fileSize =  new BigDecimal(file.getSize());
 			String newFileName =  CommUtils.getUUID();
