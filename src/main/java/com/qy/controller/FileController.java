@@ -28,7 +28,7 @@ import com.qy.util.DateUtils;
 public class FileController {
 
 	
-	private static String SYSTEM_NAME = "/test";
+	private static String SYSTEM_NAME = "test";
 	private static BigDecimal CONVERSION_VALUE = new BigDecimal(1048576);
 	@Autowired
 	FileService fileService;
