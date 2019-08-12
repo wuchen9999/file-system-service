@@ -39,7 +39,11 @@ public class FileDetail implements Serializable {
     
     
 
-    public FileDetail(String id, String fileOrginalName, String fileName, String fileCodeType, String fileUploadTime,
+    public FileDetail() {
+		super();
+	}
+
+	public FileDetail(String id, String fileOrginalName, String fileName, String fileCodeType, String fileUploadTime,
 			String fileUploadUsername, String author, String fileDescription, String fileSize, String orginalFilePath,
 			String compressFilePath, String fileType, String authorId, String fileUploadUserid, Integer fileHeight,
 			Integer fileWidth) {
